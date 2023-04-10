@@ -3,41 +3,61 @@
  */
 
 
+import { useState, useRef, useEffect } from "react"
 import { Square } from "./Square"
 
 let renders = 0
 
-export const Frame = (props) => {
-  console.log("Frame renders:", ++renders);
+export const Frame = () => {
+  const [ square, setSquare ] = useState()
+  const frameRef = useRef()
 
-  const diameter = 80
+  // <<< HARD-CODED
+  const frameSize = 80
+  const ratio = 0.6777
   const size = 5
-  
+  // HARD-CODED >>>
+
+
   const random = unit => {
-    return (Math.random() * (diameter - size)) + unit
+    return (Math.random() * (frameSize - size)) + unit
   }
 
 
-  const randomPosition = {
-    left:     random("vw"),
-    top:      random("vh"),
-    diameter: `${diameter}vmin`,
-    size:     `${size}vmin`
+  const refreshSquare = () => {
+    const frame = frameRef.current
+    const { width, height } = frame.getBoundingClientRect()
+    const diameter = Math.min(width, height) * ratio
+
+    const square = {
+      left: random("vw"),
+      top:  random("vh"),
+      size,
+      diameter,
+      frame
+    }
+
+    setSquare(square)
   }
+
+
+  useEffect(refreshSquare, [])
 
 
   return (
     <div
       style = {{
         backgroundColor: "#222",
-        border: "1px solid white",
-        width: `${diameter}vw`,
-        height: `${diameter}vh`
+        border:    "1px solid white",
+        boxSizing: "border-box",
+        width:     `${frameSize}vw`,
+        height:    `${frameSize}vh`
       }}
+      ref={frameRef}
     >
-      <Square
-        {...randomPosition}
-      />
+      {square && <Square
+        {...square}
+      />}
       <p>
         {`Frame renders: ${++renders}`}
       </p>

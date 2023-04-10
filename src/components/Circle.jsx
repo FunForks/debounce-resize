@@ -5,14 +5,51 @@
 
 
 export const Circle = ({
-  left,
-  top,
-  size,
-  diameter
+  // left, top, // not used
+  size,     // (vmin)
+  diameter, // (px)
+  frame,
+  square
 }) => {
+  const {
+    top:    frameTop,
+    left:   frameLeft,
+    right:  frameRight,
+    bottom: frameBottom
+  } = frame.getBoundingClientRect()
+  const {
+    top:    squareTop,
+    left:   squareLeft,
+    right:  squareRight,
+    bottom: squareBottom,
+  } = square.getBoundingClientRect()
 
-  const offsetX = `calc((${size} - ${diameter}) / 2`
-  const offsetY = `calc((${size} - ${diameter}) / 2`
+  let flange = (size - diameter) / 2
+
+
+  let offsetX = frameLeft - (squareLeft + flange)
+  if (offsetX < 0) {
+    offsetX = Math.min(
+      0,
+      frameRight - (squareRight - flange)
+    )
+  }
+
+
+  let offsetY = frameTop - (squareTop + flange)
+  if (offsetY < 0) {
+    offsetY = Math.min(
+      0,
+      frameBottom - (squareBottom - flange)
+    )
+  }
+
+
+  size += "vmin"
+  offsetX += "px"
+  offsetY += "px"
+  flange += "px"
+  diameter += "px"
 
 
   return (
@@ -22,7 +59,8 @@ export const Circle = ({
         pointerEvents: "none",
         width: size,
         height: size,
-        backgroundColor: "#fff6",
+        top: offsetY,
+        left: offsetX
       }}
     >
       <div
@@ -31,8 +69,8 @@ export const Circle = ({
           position: "relative",
           width: diameter,
           height: diameter,
-          top: offsetY,
-          left: offsetX,
+          top: flange,
+          left: flange,
           borderRadius: diameter,
           pointerEvents: "none"
         }}
