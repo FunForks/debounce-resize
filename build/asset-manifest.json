@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/debounce-resize/static/css/main.aa37a0a1.css",
+    "main.js": "/debounce-resize/static/js/main.1ca9c641.js",
+    "index.html": "/debounce-resize/index.html",
+    "main.aa37a0a1.css.map": "/debounce-resize/static/css/main.aa37a0a1.css.map",
+    "main.1ca9c641.js.map": "/debounce-resize/static/js/main.1ca9c641.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aa37a0a1.css",
+    "static/js/main.1ca9c641.js"
+  ]
+}
