@@ -13,9 +13,9 @@ export const Frame = () => {
   const frameRef = useRef()
 
   // <<< HARD-CODED
-  const frameSize = 80
-  const ratio = 0.6777
-  const size = 5
+  const frameSize   = 80 // (vmin)
+  const maxDiameter = 500 // px
+  const size        = 5
   // HARD-CODED >>>
 
 
@@ -27,13 +27,12 @@ export const Frame = () => {
   const refreshSquare = () => {
     const frame = frameRef.current
     const { width, height } = frame.getBoundingClientRect()
-    const diameter = Math.min(width, height) * ratio
 
     const square = {
       left: random("vw"),
       top:  random("vh"),
       size,
-      diameter,
+      maxDiameter,
       frame
     }
 

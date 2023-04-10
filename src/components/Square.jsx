@@ -15,6 +15,7 @@ export const Square = (props) => {
 
   const { left, top } = props
   const size = props.size + "vmin"
+  // maxDiameter and frame ignored here
 
 
   const click = () => {

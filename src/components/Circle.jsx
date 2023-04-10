@@ -6,8 +6,8 @@
 
 export const Circle = ({
   // left, top, // not used
-  size,     // (vmin)
-  diameter, // (px)
+  size,        // (vmin)
+  maxDiameter, // (px)
   frame,
   square
 }) => {
@@ -15,16 +15,20 @@ export const Circle = ({
     top:    frameTop,
     left:   frameLeft,
     right:  frameRight,
-    bottom: frameBottom
+    bottom: frameBottom,
+    width:  frameWidth,
+    height: frameHeight
   } = frame.getBoundingClientRect()
   const {
     top:    squareTop,
     left:   squareLeft,
     right:  squareRight,
     bottom: squareBottom,
+    width:  squareWidth
   } = square.getBoundingClientRect()
 
-  let flange = (size - diameter) / 2
+  let diameter = Math.min(maxDiameter, frameWidth, frameHeight)
+  let flange = (squareWidth - diameter) / 2
 
 
   let offsetX = frameLeft - (squareLeft + flange)
