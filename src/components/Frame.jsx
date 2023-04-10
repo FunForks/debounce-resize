@@ -58,7 +58,7 @@ export const Frame = () => {
         {...square}
       />}
       <p>
-        {`Frame renders: ${++renders}`}
+        Frame renders: {++renders}
       </p>
     </div>
   )
