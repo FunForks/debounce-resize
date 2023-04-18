@@ -1,5 +1,12 @@
 /**
  * Frame.jsx
+ *
+ * Creates a Frame <div> with an arbitrary position and size,
+ * and places a Square at an arbitrary position inside it.
+ *
+ * The Square is not added until the Frame has been rendered
+ * for the first time. This forces the Frame to render a second
+ * time.
  */
 
 
@@ -26,11 +33,12 @@ export const Frame = () => {
 
   const refreshSquare = () => {
     const frame = frameRef.current
-    const { width, height } = frame.getBoundingClientRect()
+    const left = random("vw")
+    const top =  random("vh")
 
     const square = {
-      left: random("vw"),
-      top:  random("vh"),
+      left,
+      top,
       size,
       maxDiameter,
       frame
@@ -53,6 +61,7 @@ export const Frame = () => {
         height:    `${frameSize}vh`
       }}
       ref={frameRef}
+      className="frame"
     >
       {square && <Square
         {...square}

@@ -1,19 +1,31 @@
 /**
  * Circle.jsx
+ *
+ * Shows a circle whose position is adjusted to fit the Frame
+ * element passed as a prop. If the dimensions of the Frame
+ * allow, it will be centered on the Square element with a
+ * diameter of maxDiameter. If not its position and diameter
+ * will be adjusted to fit within the Frame.
+ *
+ * When the viewport is resized, the circle's size and position
+ * will be adjusted to fit the new Frame dimensions.
  */
 
 import { useState, useEffect } from 'react'
 import { debounce } from '../tools/script'
 
+
 let renders = 0
 
+
 export const Circle = ({
-  size,        // (vmin)
+  size,        // (vmin) only used for renders feedback
   maxDiameter, // (px)
-  frame,
-  square
+  frame,       // DOM element
+  square       // DOM element
 }) => {
-// left, top not used here
+// left, top (position of square) not used here, as these data
+// are calculated from the bounding client rect instead
 
 
   const [ sizes, setSizes ] = useState({
@@ -85,16 +97,20 @@ export const Circle = ({
 
   return (
     <div
+      className="circle-center"
       style={{
         position: "relative",
-        pointerEvents: "none",
-        width: size+"vmin",
-        height: size+"vmin",
+        width: "100%",
+        height: "100%",
         top: offsetY+"px",
-        left: offsetX+"px"
+        left: offsetX+"px",
+        backgroundColor: "#090",
+        borderRadius: "100%",
+        pointerEvents: "none"
       }}
     >
       <div
+        className="circle"
         style = {{
           backgroundColor: "#0906",
           position: "relative",
@@ -102,21 +118,11 @@ export const Circle = ({
           left: flange+"px",
           width: diameter+"px",
           height: diameter+"px",
-          borderRadius: diameter+"px",
-          pointerEvents: "none"
+          borderRadius: diameter+"px"
         }}
       />
-      <div
-        style = {{
-          backgroundColor: "#090",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          borderRadius: size+"vmin",
-          top: 0,
-          left: 0
-        }}
-      />
+
+      {/* Feedback */}
       <p
         style = {{
           "--width": "9em",

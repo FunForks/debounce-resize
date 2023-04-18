@@ -8,6 +8,13 @@ import { Circle } from "./Circle"
 
 
 export const Square = (props) => {
+  // props = {
+  //   left,
+  //   top,
+  //   size,
+  //   maxDiameter,
+  //   frame
+  // }
   const [ open, setOpen ] = useState(true)
   const [ square, setSquare ] = useState()
 
@@ -20,6 +27,10 @@ export const Square = (props) => {
 
   const click = () => {
     setOpen(!open)
+    const {width} = document.body.getBoundingClientRect()
+    const {left, right, top, bottom, width: frameWidth} = props.frame.getBoundingClientRect()
+    console.log("left margin:", left, ", right margin:", width - right, ", width:", frameWidth, ", top:", top, ", bottom:", bottom);
+
   }
 
 
